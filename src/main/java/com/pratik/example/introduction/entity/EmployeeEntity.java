@@ -1,14 +1,14 @@
 package com.pratik.example.introduction.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
 
 @Entity
-@Getter
-@Setter
 @AllArgsConstructor
+@Data
 @NoArgsConstructor
 @Table(name = "employees")
 public class EmployeeEntity {
@@ -20,5 +20,7 @@ public class EmployeeEntity {
     private String email;
     private Integer age;
     private LocalDate dateOfJoining;
+    @JsonProperty("isActive")
     private Boolean isActive;
+    private String role;
 }

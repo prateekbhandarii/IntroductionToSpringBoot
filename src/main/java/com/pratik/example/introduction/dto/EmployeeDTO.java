@@ -1,73 +1,41 @@
 package com.pratik.example.introduction.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.pratik.example.introduction.annotations.EmployeeRoleValidation;
+import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDate;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class EmployeeDTO {
 
     private Long id;
+    @NotBlank(message = "Name cannot be null or empty.")
+    @Size(min = 3, max = 10, message = "Name should be in range from 3 to 10")
     private String name;
+
+    @Email(message = "Email should be valid")
     private String email;
+
+    @Max(value = 80, message = "Age cannot be greater than 80")
+    @Min(value = 18, message = "Age cannot be lesser than 18")
     private Integer age;
+
+    @NotBlank(message = "Role cannot be blank")
+    //@Pattern(regexp = "^(ADMIN|USER)$", message = "Role can either be ADMIN or USER only.")
+    @EmployeeRoleValidation
+    private String role;
+
+    @PastOrPresent(message = "Date cannot be in the future")
     private LocalDate dateOfJoining;
+
+    @JsonProperty("isActive")
     private Boolean isActive;
-
-    public EmployeeDTO() {
-    }
-
-    public EmployeeDTO(Long id, String name, String email, Integer age, LocalDate dateOfJoining, Boolean isActive) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.age = age;
-        this.dateOfJoining = dateOfJoining;
-        this.isActive = isActive;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public LocalDate getDateOfJoining() {
-        return dateOfJoining;
-    }
-
-    public void setDateOfJoining(LocalDate dateOfJoining) {
-        this.dateOfJoining = dateOfJoining;
-    }
-
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
 }
